@@ -59,9 +59,9 @@ function Navbar() {
           </a>
         </li>
         <li>
-          <a href="#doctors" className="navbar-links">
+          <Link to="/find-doctors" className="navbar-links">
             Doctors
-          </a>
+          </Link>
         </li>
       </ul>
 

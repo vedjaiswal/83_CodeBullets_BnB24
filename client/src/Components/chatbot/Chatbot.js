@@ -1,7 +1,6 @@
 import React from 'react';
 // import "../Styles/Chatbot.css";
 import ChatBot from 'react-simple-chatbot';
-import Dialog from '@mui/material'
 
 class Chatbot extends React.Component {
   constructor(props) {
@@ -37,13 +36,14 @@ class Chatbot extends React.Component {
 
   this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease });
 };
+console.log(this.state)
 
     
 
     return (
-      <>
         <ChatBot
-          headerTitle="Telemedicine Chatbot"
+
+          headerTitle="WellCare Chatbot"
           steps={[
             {
               id: '1',
@@ -96,7 +96,6 @@ class Chatbot extends React.Component {
                 { value: 'Other', label: 'Other', trigger: 'disease' },
                 { value: 'None', label: 'None', trigger: 'disease' },
               ],
-              trigger: '6',
             },
             {
               id: 'disease',
@@ -115,7 +114,6 @@ class Chatbot extends React.Component {
           floating={true}
           handleEnd={handleEnd}
         />
-      </>
     );
   }
 }
