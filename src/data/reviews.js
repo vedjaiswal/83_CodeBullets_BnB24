@@ -2,12 +2,12 @@ export const customerReviews = [
     {
       "name": "Esther Howard",
       "location": "Texas, USA",
-      "message": "Health Plus transformed my healthcare experience! The online consultations were so convenient, and the doctors were knowledgeable and caring."
+      "message": "WellCare transformed my healthcare experience! The online consultations were so convenient, and the doctors were knowledgeable and caring."
     },
     {
       "name": "John Doe",
       "location": "California, USA",
-      "message": "I found the perfect specialist for my condition through Health Plus. The personalized treatment plan made all the difference. Thank you for prioritizing my health!"
+      "message": "I found the perfect specialist for my condition through Well Care. The personalized treatment plan made all the difference. Thank you for prioritizing my health!"
     },
     {
       "name": "Alice Smith",
@@ -17,17 +17,17 @@ export const customerReviews = [
     {
       "name": "Bob Johnson",
       "location": "Florida, USA",
-      "message": "Health Plus is a game-changer! The emergency care saved me during a critical situation. Grateful for their quick and efficient support."
+      "message": "Well Care is a game-changer! The emergency care saved me during a critical situation. Grateful for their quick and efficient support."
     },
     {
       "name": "Jane Brown",
       "location": "Washington, USA",
-      "message": "I used to dread dental visits, but Health Plus made it a pleasant experience. The dentist was gentle and professional. I'll definitely be back!"
+      "message": "I used to dread dental visits, but Well Care made it a pleasant experience. The dentist was gentle and professional. I'll definitely be back!"
     },
     {
       "name": "Robert Wilson",
       "location": "Texas, USA",
-      "message": "Finally, a healthcare platform that puts patients first! The heart disease service provided comprehensive care and regular follow-ups. Thank you, Health Plus!"
+      "message": "Finally, a healthcare platform that puts patients first! The heart disease service provided comprehensive care and regular follow-ups. Thank you, WellCare!"
     },
     {
       "name": "Mary Lee",
