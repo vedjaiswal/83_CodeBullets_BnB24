@@ -90,3 +90,17 @@
         font-size: 18px;
     }
 }
+
+
+.time-slot-card.selected {
+    background-color: #007c70; /* Dark green color for selected slot */
+    color: #fff; /* Text color for selected slot */
+    z-index: 1; /* Ensures selected slot is on top */
+  }
+  
+  .time-slot-card:hover,
+  .time-slot-card:focus {
+    background-color: #007c70; /* Dark green color on hover and focus */
+    color: #fff; /* Text color on hover and focus */
+  }
+  
