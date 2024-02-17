@@ -6,6 +6,7 @@ import profile3 from "../../images/profile-3.png";
 import profile4 from "../../images/profile-4.png";
 import "../../Styles/Doctors.css";
 
+
 function Doctors() {
   return (
     <>
@@ -26,6 +27,7 @@ function Doctors() {
                 <button className="btn text-white font-medium bg-blue-600 mt-0 rounded-[0px] rounded-r-md h-full px-6 text-lg pt-3 pb-3">
                   Search
                 </button>
+               
               </div>
             </div>
 

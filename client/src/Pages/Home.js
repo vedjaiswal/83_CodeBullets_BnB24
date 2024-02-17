@@ -9,12 +9,12 @@ import Doctors from "../Components/home/Doctors";
 import Footer from "../Components/home/Footer";
 import Chatbot from "../Components/chatbot/Chatbot";
 
+
 function Home() {
   return (
     <div className="home-section">
       <Navbar />
       <Hero />
-      <Chatbot />
       <Info />
       <BookAppointment />
       <About />

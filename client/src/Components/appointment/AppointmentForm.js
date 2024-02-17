@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../Styles/AppointmentForm.css";
 import { ToastContainer, toast } from "react-toastify";
+import wellCareLogo from '../../images/wellCareLogo.jpg'
 
 function AppointmentForm() {
   useEffect(() => {
@@ -11,10 +12,13 @@ function AppointmentForm() {
   const [patientName, setPatientName] = useState("");
   const [patientNumber, setPatientNumber] = useState("");
   const [patientGender, setPatientGender] = useState("default");
+  const [doctorName, setDoctorName] = useState("default");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [preferredMode, setPreferredMode] = useState("default");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [showTimeSlot, setShowTimeSlot] = useState(false);
+  const [timeSlots, setTimeSlots] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,10 +58,19 @@ function AppointmentForm() {
       return;
     }
 
+    console.log("Form Submitted with the following details:");
+    console.log("Patient Name:", patientName);
+    console.log("Patient Phone Number:", patientNumber);
+    console.log("Patient Gender:", patientGender);
+    console.log("Selected Doctor:", doctorName);
+    console.log("Appointment Time:", appointmentTime);
+    console.log("Preferred Mode:", preferredMode);
+
     // Reset form fields and errors after successful submission
     setPatientName("");
     setPatientNumber("");
     setPatientGender("default");
+    setDoctorName("default");
     setAppointmentTime("");
     setPreferredMode("default");
     setFormErrors({});
@@ -69,13 +82,25 @@ function AppointmentForm() {
     });
   };
 
+  const handleDoctorChange = (selectedDoctor) => {
+    setDoctorName(selectedDoctor);
+    setShowTimeSlot(true); // Show time slot input when a valid doctor is selected
+
+    const simulatedTimeSlots = ["11:00", "12:00", "13:00", "14:00", "15:00"];
+    setTimeSlots(simulatedTimeSlots);
+  };
+
+  const handleTimeSlotSelect = (selectedTimeSlot) => {
+    setAppointmentTime(selectedTimeSlot);
+  };
+
   return (
     <div className="appointment-form-section">
-      {/* <h1 className="legal-siteTitle">
+      <h1 className="legal-siteTitle">
         <Link to="/">
-          Health <span className="legal-siteSign">+</span>
+         <img style={{width : 300, marginLeft:'40%'}} src={wellCareLogo} alt="wellcare" />
         </Link>
-      </h1> */}
+      </h1>
 
       <div className="form-container">
         <h2 className="form-title">
@@ -91,7 +116,9 @@ function AppointmentForm() {
               onChange={(e) => setPatientName(e.target.value)}
               required
             />
-            {formErrors.patientName && <p className="error-message">{formErrors.patientName}</p>}
+            {formErrors.patientName && (
+              <p className="error-message">{formErrors.patientName}</p>
+            )}
           </label>
 
           <br />
@@ -103,7 +130,9 @@ function AppointmentForm() {
               onChange={(e) => setPatientNumber(e.target.value)}
               required
             />
-            {formErrors.patientNumber && <p className="error-message">{formErrors.patientNumber}</p>}
+            {formErrors.patientNumber && (
+              <p className="error-message">{formErrors.patientNumber}</p>
+            )}
           </label>
 
           <br />
@@ -119,20 +148,55 @@ function AppointmentForm() {
               <option value="female">Female</option>
               <option value="private">I will inform Doctor only</option>
             </select>
-            {formErrors.patientGender && <p className="error-message">{formErrors.patientGender}</p>}
+            {formErrors.patientGender && (
+              <p className="error-message">{formErrors.patientGender}</p>
+            )}
           </label>
 
           <br />
           <label>
-            Preferred Appointment Time:
-            <input
-              type="datetime-local"
-              value={appointmentTime}
-              onChange={(e) => setAppointmentTime(e.target.value)}
+            Select Doctor:
+            <select
+              value={doctorName}
+              onChange={(e) => handleDoctorChange(e.target.value)}
               required
-            />
-            {formErrors.appointmentTime && <p className="error-message">{formErrors.appointmentTime}</p>}
+            >
+              <option value="default">Select</option>
+              <option value="male">Dr. Hiranandani</option>
+              <option value="female">Dr. Deshmukh</option>
+              <option value="private">Dr. Malpani</option>
+              <option value="private">Dr. Abhinav</option>
+            </select>
+            {formErrors.doctorName && (
+              <p className="error-message">{formErrors.doctorName}</p>
+            )}
           </label>
+
+          {showTimeSlot && (
+  <>
+    <br />
+    <label>
+      Preferred Appointment Time:
+      <div className="time-slot-container flex">
+        {timeSlots.map((slot) => (
+          <div
+            key={slot}
+            className={`time-slot-card p-1 m-2 cursor-pointer rounded-md bg-green-600 ${
+              appointmentTime === slot ? "selected" : ""
+            }`}
+            onClick={() => handleTimeSlotSelect(slot)}
+          >
+            {slot}
+          </div>
+        ))}
+      </div>
+      {formErrors.appointmentTime && (
+        <p className="error-message">{formErrors.appointmentTime}</p>
+      )}
+    </label>
+  </>
+)}
+
 
           <br />
           <label>
@@ -146,7 +210,9 @@ function AppointmentForm() {
               <option value="voice">Voice Call</option>
               <option value="video">Video Call</option>
             </select>
-            {formErrors.preferredMode && <p className="error-message">{formErrors.preferredMode}</p>}
+            {formErrors.preferredMode && (
+              <p className="error-message">{formErrors.preferredMode}</p>
+            )}
           </label>
 
           <br />
@@ -154,7 +220,13 @@ function AppointmentForm() {
             Confirm Appointment
           </button>
 
-          <p className="success-message" style={{display: isSubmitted ? "block" : "none"}}>Appointment details has been sent to the patients phone number via SMS.</p>
+          <p
+            className="success-message"
+            style={{ display: isSubmitted ? "block" : "none" }}
+          >
+            Appointment details has been sent to the patients phone number via
+            SMS.
+          </p>
         </form>
       </div>
 

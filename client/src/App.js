@@ -8,6 +8,7 @@ import Appointment from "./Pages/Appointment";
 import Login from "./Components/login/Login";
 import SignUp from "./Components/login/SignUp";
 import Doctors from "./Components/home/Doctors";
+import Chatbot from "./Components/chatbot/Chatbot";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
+      <Chatbot/>
     </div>
   );
 }
