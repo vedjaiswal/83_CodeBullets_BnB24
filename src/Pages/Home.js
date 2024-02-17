@@ -1,12 +1,12 @@
 import React from "react";
-import Navbar from "../components/home/Navbar";
-import Hero from "../components/home/Hero";
-import Info from "../components/home/Info";
-import About from "../components/home/About";
-import BookAppointment from "../components/home/BookAppointment";
-import Reviews from "../components/home/Reviews";
-import Doctors from "../components/home/Doctors";
-import Footer from "../components/home/Footer";
+import Navbar from "../Components/home/Navbar";
+import Hero from "../Components/home/Hero";
+import Info from "../Components/home/Info";
+import About from "../Components/home/About";
+import BookAppointment from "../Components/home/BookAppointment";
+import Reviews from "../Components/home/Reviews";
+import Doctors from "../Components/home/Doctors";
+import Footer from "../Components/home/Footer";
 
 function Home() {
   return (
