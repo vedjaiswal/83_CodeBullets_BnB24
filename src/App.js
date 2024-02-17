@@ -7,6 +7,7 @@ import NotFound from "./Pages/NotFound";
 import Appointment from "./Pages/Appointment";
 import Login from "./Components/login/Login";
 import SignUp from "./Components/login/SignUp";
+import Doctors from "./Components/home/Doctors";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/find-doctors" element={<Doctors />} />
           <Route path="/register" element={<SignUp />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/appointment" element={<Appointment />} />

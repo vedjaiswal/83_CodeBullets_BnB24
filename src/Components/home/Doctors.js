@@ -8,51 +8,69 @@ import "../../Styles/Doctors.css";
 
 function Doctors() {
   return (
-    <div className="doctor-section" id="doctors">
-      <div className="dt-title-content">
-        <h3 className="dt-title">
-          <span>Meet Our Doctors</span>
-        </h3>
+    <>
+      <section>
+        <div className="doctor-section" id="doctors">
+          <div className="dt-title-content">
+            <h3 className="dt-title">
+              <span>Meet Our Doctors</span>
+            </h3>
 
-        <p className="dt-description">
-          Meet our exceptional team of specialist doctors, dedicated to
-          providing top-notch healthcare services at Health Plus. Trust in their
-          knowledge and experience to lead you towards a healthier and happier
-          life.
-        </p>
-      </div>
+            <div className="container text-center">
+  <div className="max-w-[570px] mt-[30px] mx-auto bg-[#0066ff2c] rounded-md flex items-center justify-between">
+    <input
+      type="search"
+      className="py-4 pl-4 pr-2 bg-transparent w-full h-full focus:outline-none cursor-pointer placeholder:text-textColor"
+      placeholder="Search Doctor "
+    />
+    <button className="btn bg-blue-600 mt-0 rounded-[0px] rounded-r-md h-full px-6 text-lg pt-3 pb-3">
+      Search
+    </button>
+  </div>
+</div>
 
-      <div className="dt-cards-content">
-        <DoctorCard
-          img={profile1}
-          name="Dr. Kathryn Murphy"
-          title="General Surgeons"
-          stars="4.9"
-          reviews="1800"
-        />
-        <DoctorCard
-          img={profile2}
-          name="Dr. Jacob Jones"
-          title="Hematologists"
-          stars="4.8"
-          reviews="700"
-        />
-        <DoctorCard
-          img={profile3}
-          name="Dr. Jenny Wilson"
-          title="Endocrinologists"
-          stars="4.7"
-          reviews="450"
-        />
-        <DoctorCard
-          img={profile4}
-          name="Dr. Albert Flores"
-          title="Hematologists"
-          stars="4.8"
-          reviews="500"
-        />
-      </div>
-    </div>
+
+            <p className="dt-description">
+              Meet our exceptional team of specialist doctors, dedicated to
+              providing top-notch healthcare services at Health Plus. Trust in
+              their knowledge and experience to lead you towards a healthier and
+              happier life.
+            </p>
+          </div>
+
+          <div className="dt-cards-content">
+            <DoctorCard
+              img={profile1}
+              name="Dr. Kathryn Murphy"
+              title="General Surgeons"
+              stars="4.9"
+              reviews="1800"
+            />
+            <DoctorCard
+              img={profile2}
+              name="Dr. Jacob Jones"
+              title="Hematologists"
+              stars="4.8"
+              reviews="700"
+            />
+            <DoctorCard
+              img={profile3}
+              name="Dr. Jenny Wilson"
+              title="Endocrinologists"
+              stars="4.7"
+              reviews="450"
+            />
+            <DoctorCard
+              img={profile4}
+              name="Dr. Albert Flores"
+              title="Hematologists"
+              stars="4.8"
+              reviews="500"
+            />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
