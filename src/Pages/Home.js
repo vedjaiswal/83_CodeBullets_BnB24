@@ -16,10 +16,9 @@ function Home() {
       <Hero />
       <Chatbot />
       <Info />
-      <About />
       <BookAppointment />
+      <About />
       <Reviews />
-      <Doctors />
       <Footer />
     </div>
   );

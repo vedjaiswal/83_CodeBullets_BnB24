@@ -17,18 +17,17 @@ function Doctors() {
             </h3>
 
             <div className="container text-center">
-  <div className="max-w-[570px] mt-[30px] mx-auto bg-[#0066ff2c] rounded-md flex items-center justify-between">
-    <input
-      type="search"
-      className="py-4 pl-4 pr-2 bg-transparent w-full h-full focus:outline-none cursor-pointer placeholder:text-textColor"
-      placeholder="Search Doctor "
-    />
-    <button className="btn bg-blue-600 mt-0 rounded-[0px] rounded-r-md h-full px-6 text-lg pt-3 pb-3">
-      Search
-    </button>
-  </div>
-</div>
-
+              <div className="max-w-[570px] mt-[30px] mx-auto bg-[#0066ff2c] rounded-md flex items-center justify-between">
+                <input
+                  type="search"
+                  className="py-4 pl-4 pr-2 bg-transparent w-full h-full focus:outline-none cursor-pointer placeholder:text-textColor"
+                  placeholder="Search Doctor "
+                />
+                <button className="btn text-white font-medium bg-blue-600 mt-0 rounded-[0px] rounded-r-md h-full px-6 text-lg pt-3 pb-3">
+                  Search
+                </button>
+              </div>
+            </div>
 
             <p className="dt-description">
               Meet our exceptional team of specialist doctors, dedicated to
