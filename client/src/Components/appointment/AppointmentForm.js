@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../Styles/AppointmentForm.css";
 import { ToastContainer, toast } from "react-toastify";
+import wellCareLogo from '../../images/wellCareLogo.jpg'
 
 function AppointmentForm() {
   useEffect(() => {
@@ -97,7 +98,7 @@ function AppointmentForm() {
     <div className="appointment-form-section">
       <h1 className="legal-siteTitle">
         <Link to="/">
-          WellCare
+         <img style={{width : 300, marginLeft:'40%'}} src={wellCareLogo} alt="wellcare" />
         </Link>
       </h1>
 
