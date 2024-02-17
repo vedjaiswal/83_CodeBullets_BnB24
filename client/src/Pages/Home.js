@@ -8,14 +8,13 @@ import Reviews from "../Components/home/Reviews";
 import Doctors from "../Components/home/Doctors";
 import Footer from "../Components/home/Footer";
 import Chatbot from "../Components/chatbot/Chatbot";
-import Experiment from "../Components/chatbot/Experiment";
+
 
 function Home() {
   return (
     <div className="home-section">
       <Navbar />
       <Hero />
-      {/* <Experiment /> */}
       <Info />
       <BookAppointment />
       <About />
