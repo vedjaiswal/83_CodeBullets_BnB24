@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import signupImg from "../Assets/signup.gif";
+import signupImg from "../../images/signup.gif";
 
 const SignUp = () => {
   const [selectedFile, setSelectedFile] = useState("null");

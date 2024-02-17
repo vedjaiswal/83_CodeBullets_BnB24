@@ -1,12 +1,12 @@
 import React from "react";
-import Doctor from "../Assets/doctor-book-appointment.png";
+import Doctor from "../../images/doctor-book-appointment.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,
   faCalendarCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate  } from "react-router-dom";
-import "../Styles/BookAppointment.css";
+import "../../Styles/BookAppointment.css";
 
 function BookAppointment() {
   const navigate = useNavigate();
