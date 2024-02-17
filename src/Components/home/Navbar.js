@@ -59,26 +59,26 @@ function Navbar() {
           </a>
         </li>
         <li>
-          <a href="#doctors" className="navbar-links">
+          <Link to="/find-doctors" className="navbar-links">
             Doctors
-          </a>
+          </Link>
         </li>
       </ul>
 
       <Link to="/login">
-        <button className="bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[40px]">
+        <button className="bg-black py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[40px]">
           Login
         </button>
       </Link>
 
-      {/* <button
+       {/* <button
         className="navbar-btn"
         type="button"
         disabled={isButtonDisabled}
         onClick={handleChatBtnClick}
       >
-        <FontAwesomeIcon icon={faCommentDots} /> Live Chat
-      </button> */}
+         LogIn
+      </button>  */}
     
 
       {/* Mobile */}
