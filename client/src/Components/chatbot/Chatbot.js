@@ -1,6 +1,58 @@
-import React from 'react';
-// import "../Styles/Chatbot.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
+
+class Result extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      age: '',
+      symptoms: [],
+      disease: '',
+    };
+  }
+
+  componentWillMount() {
+    const { steps } = this.props;
+    const { name, age, symptoms, disease } = steps;
+
+    this.setState({ name, age, symptoms, disease });
+  }
+
+  render() {
+    const { name, age, symptoms, disease } = this.state;
+    return (
+      <div style={{ width: '100%' }}>
+        <h3>Summary</h3>
+        {/* <table>
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td>{name.value}</td>
+            </tr>
+            <tr>
+              <td>Gender</td>
+              <td>{gender.value}</td>
+            </tr>
+            <tr>
+              <td>Age</td>
+              <td>{age.value}</td>
+            </tr>
+          </tbody>
+        </table> */}
+      </div>
+    );
+  }
+}
+
+Result.propTypes = {
+  steps: PropTypes.object,
+};
+
+Result.defaultProps = {
+  steps: undefined,
+};
 
 class Chatbot extends React.Component {
   constructor(props) {
@@ -18,102 +70,96 @@ class Chatbot extends React.Component {
     const { name, age, symptoms, disease } = this.state;
 
     const handleEnd = ({ steps, values }) => {
-  const { name, age, symptoms } = values;
-  // Ensure symptoms is an array
-  const selectedSymptoms = Array.isArray(symptoms) ? symptoms : [];
-  let suggestedDisease = '';
+      const { name, age, symptoms } = steps;
+      const selectedSymptoms = Array.isArray(symptoms) ? symptoms : [];
+      let suggestedDisease = '';
 
-  // Check for specific symptoms and suggest corresponding disease
-  if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Cough')) {
-    suggestedDisease = 'Common Cold';
-  } else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Fatigue')) {
-    suggestedDisease = 'Flu';
-  } else if (selectedSymptoms.includes('Headache')) {
-    suggestedDisease = 'Migraine';
-  } else {
-    suggestedDisease = 'Unknown';
-  }
+      // Check for specific symptoms and suggest corresponding disease
+      if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Cough')) {
+        suggestedDisease = 'Common Cold';
+      } else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Fatigue')) {
+        suggestedDisease = 'Flu';
+      } else if (selectedSymptoms.includes('Headache')) {
+        suggestedDisease = 'Migraine';
+      } else if (selectedSymptoms.includes('Nausea') && selectedSymptoms.includes('Vomiting')) {
+        suggestedDisease = 'Stomach Flu';
+      } else if (selectedSymptoms.includes('Chest Pain') && selectedSymptoms.includes('Shortness of Breath')) {
+        suggestedDisease = 'Pneumonia';
+      } else if (selectedSymptoms.includes('Rash') && selectedSymptoms.includes('Joint Pain')) {
+        suggestedDisease = 'Dengue Fever';
+      } else {
+        suggestedDisease = 'Unknown';
+      }
 
-  this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease });
-};
-console.log(this.state)
-
-    
+      this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease });
+    };
 
     return (
-        <ChatBot
-
-          headerTitle="WellCare Chatbot"
-          steps={[
-            {
-              id: '1',
-              message: 'Welcome to Telemedicine Chatbot! What is your name?',
-              trigger: 'name',
+      <ChatBot
+        headerTitle="WellCare Chatbot"
+        steps={[
+          {
+            id: '1',
+            message: 'Welcome to Telemedicine Chatbot! What is your name?',
+            trigger: 'name',
+          },
+          {
+            id: 'name',
+            user: true,
+            trigger: 'age',
+            validator: (value) => (/^[A-Za-z\s]+$/.test(value) ? true : 'Please enter a valid name (only alphabets and spaces)'),
+          },
+          {
+            id: 'age',
+            message: 'Hi {previousValue}, please enter your age.',
+            trigger: 'ageInput',
+          },
+          {
+            id: 'ageInput',
+            user: true,
+            trigger: 'symptoms',
+            validator: (value) => (!isNaN(value) && parseInt(value) > 0 ? true : 'Age must be a positive number.'),
+          },
+          {
+            id: 'symptoms',
+            message: 'Please select the symptoms you are experiencing:',
+            trigger: 'symptomsOptions',
+          },
+          {
+            id: 'symptomsOptions',
+            options: [
+              { value: 'Fever', label: 'Fever', trigger: 'symptomsOptions' },
+              { value: 'Cough', label: 'Cough', trigger: 'symptomsOptions' },
+              { value: 'Headache', label: 'Headache', trigger: 'symptomsOptions' },
+              { value: 'Fatigue', label: 'Fatigue', trigger: 'symptomsOptions' },
+              { value: 'Nausea', label: 'Nausea', trigger: 'symptomsOptions' },
+              { value: 'Vomiting', label: 'Vomiting', trigger: 'symptomsOptions' },
+              { value: 'Chest Pain', label: 'Chest Pain', trigger: 'symptomsOptions' },
+              { value: 'Shortness of Breath', label: 'Shortness of Breath', trigger: 'symptomsOptions' },
+              { value: 'Rash', label: 'Rash', trigger: 'symptomsOptions' },
+              { value: 'Joint Pain', label: 'Joint Pain', trigger: 'symptomsOptions' },
+              { value: 'Other', label: 'Other', trigger: 'disease' },
+              { value: 'None', label: 'None', trigger: 'disease' },
+            ],
+            trigger: 'disease', // Automatically go to disease step after symptoms selection
+            hideInput: true, // Hide user input after selecting symptoms
+          },
+          {
+            id: 'disease',
+            message: ({ previousValue }) => {
+              const { name, age, symptoms, disease } = this.state;
+              if (previousValue === 'None' && symptoms.length === 0) {
+                return 'Based on your input, you seem to be healthy. If you have further concerns, please consult a healthcare professional.';
+              } else if (previousValue === 'Other') {
+                return `Based on your symptoms, you might be having ${disease}. Please consult a doctor for further evaluation.`;
+              } 
             },
-            {
-              id: 'name',
-              user: true,
-              trigger: '3',
-              validator: (value) => {
-                if (/^[A-Za-z\s]+$/.test(value)) {
-                  return true;
-                } else {
-                  return 'Please enter a valid name (only alphabets and spaces)';
-                }
-              },
-            },
-            {
-              id: '3',
-              message: 'Hi {previousValue}, please enter your age.',
-              trigger: 'age',
-            },
-            {
-              id: 'age',
-              user: true,
-              trigger: '5',
-              validator: (value) => {
-                if (isNaN(value)) {
-                  return 'Age must be a number.';
-                } else if (parseInt(value) <= 0) {
-                  return 'Age must be a positive number.';
-                } else {
-                  return true;
-                }
-              },
-            },
-            {
-              id: '5',
-              message: 'Please select the symptoms you are experiencing:',
-              trigger: 'symptoms',
-            },
-            {
-              id: 'symptoms',
-              options: [
-                { value: 'Fever', label: 'Fever', trigger: 'symptoms' },
-                { value: 'Cough', label: 'Cough', trigger: 'symptoms' },
-                { value: 'Headache', label: 'Headache', trigger: 'symptoms' },
-                { value: 'Fatigue', label: 'Fatigue', trigger: 'symptoms' },
-                { value: 'Other', label: 'Other', trigger: 'disease' },
-                { value: 'None', label: 'None', trigger: 'disease' },
-              ],
-            },
-            {
-              id: 'disease',
-              message: ({ previousValue }) => {
-                if (previousValue === 'None') {
-                  return 'Based on your input, you seem to be healthy. If you have further concerns, please consult a healthcare professional.';
-                } else if (previousValue === 'Other') {
-                  return 'Based on your symptoms, it is advisable to consult a doctor for a proper diagnosis.';
-                } else {
-                  return `Based on your symptoms, you might be having ${disease}. Please consult a doctor for further evaluation.`;
-                }
-              },
-              end: true,
-            },
-          ]}
-          floating={true}
-          handleEnd={handleEnd}
-        />
+            end: true,
+          },
+        ]}
+        floating={true}
+        handleEnd={handleEnd}
+      />
     );
   }
 }

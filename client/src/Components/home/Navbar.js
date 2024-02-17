@@ -8,7 +8,8 @@ import {
 import "../../Styles/Navbar.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-// import { wellCareLogo } from '../../images/wellCareLogo.jpg'
+import wellCareLogo from '../../images/wellCareLogo.jpg'
+
 
 function Navbar() {
   const [nav, setNav] = useState(false);
@@ -32,7 +33,7 @@ function Navbar() {
     <div className="navbar-section">
       <h1 className="navbar-title">
         <Link to="/">
-          <img src='' alt="Logo" />
+          <img style={{width : 250}} src={wellCareLogo} alt="Logo" />
         </Link>
       </h1>
 

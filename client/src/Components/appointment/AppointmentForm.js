@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";import "../../Styles/AppointmentForm.css";
 import { ToastContainer, toast } from "react-toastify";
+import wellCareLogo from '../../images/wellCareLogo.jpg'
 
 function AppointmentForm() {
   useEffect(() => {
