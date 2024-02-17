@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import signupImg from "../../images/signup.gif";
+import { authenticateSignup } from "../../service/api";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const [previewURL, setSetPreviewURL] = useState("");
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     password: "",
     gender: "",
-    role: "patient",
+    // role: "patient",
   });
 
   const handleInputChange = (e) => {
@@ -23,6 +25,9 @@ const SignUp = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    let res = authenticateSignup(formData)
+    console.log(res);
+    navigate('/');
   };
 
   return (
@@ -47,7 +52,7 @@ const SignUp = () => {
                   type="text"
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   placeholder="Full Name"
-                  name="text"
+                  name="name"
                   value={formData.name}
                   onChange={handleInputChange}
                   required

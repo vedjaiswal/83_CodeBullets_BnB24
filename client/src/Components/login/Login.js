@@ -2,9 +2,12 @@ import { useState } from "react";
 import {Link} from 'react-router-dom'
 import '../../Styles/Login.css'
 import loginimg from '../../images/tabletLogin.gif'
+import { authenticateLogin } from "../../service/api";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
+  const navigate = useNavigate();
   const [formData, setFormData] =useState({
     email: '',
     password: ''
@@ -14,7 +17,11 @@ const Login = () => {
     setFormData({... formData,[e.target.name]:e.target.value});
   }
   const submitHandler = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    let res = authenticateLogin(formData);
+    console.log(res)
+    navigate('/')
+
   }
   return (
      

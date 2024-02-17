@@ -1,5 +1,58 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
+
+class Result extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      age: '',
+      symptoms: [],
+      disease: '',
+    };
+  }
+
+  componentWillMount() {
+    const { steps } = this.props;
+    const { name, age, symptoms, disease } = steps;
+
+    this.setState({ name, age, symptoms, disease });
+  }
+
+  render() {
+    const { name, age, symptoms, disease } = this.state;
+    return (
+      <div style={{ width: '100%' }}>
+        <h3>Summary</h3>
+        {/* <table>
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td>{name.value}</td>
+            </tr>
+            <tr>
+              <td>Gender</td>
+              <td>{gender.value}</td>
+            </tr>
+            <tr>
+              <td>Age</td>
+              <td>{age.value}</td>
+            </tr>
+          </tbody>
+        </table> */}
+      </div>
+    );
+  }
+}
+
+Result.propTypes = {
+  steps: PropTypes.object,
+};
+
+Result.defaultProps = {
+  steps: undefined,
+};
 
 class Chatbot extends React.Component {
   constructor(props) {
@@ -17,7 +70,7 @@ class Chatbot extends React.Component {
     const { name, age, symptoms, disease } = this.state;
 
     const handleEnd = ({ steps, values }) => {
-      const { name, age, symptoms } = values;
+      const { name, age, symptoms } = steps;
       const selectedSymptoms = Array.isArray(symptoms) ? symptoms : [];
       let suggestedDisease = '';
 
@@ -94,10 +147,11 @@ class Chatbot extends React.Component {
           {
             id: 'disease',
             message: ({ previousValue }) => {
-              if (previousValue === 'None') {
+              const { name, age, symptoms, disease } = this.state;
+              if (previousValue === 'None' && symptoms.length === 0) {
                 return 'Based on your input, you seem to be healthy. If you have further concerns, please consult a healthcare professional.';
               } else if (previousValue === 'Other') {
-                return `Based on your symptoms, you might be having ${this.state.disease}. Please consult a doctor for further evaluation.`;
+                return `Based on your symptoms, you might be having ${disease}. Please consult a doctor for further evaluation.`;
               } 
             },
             end: true,
