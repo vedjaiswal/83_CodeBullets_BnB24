@@ -8,6 +8,7 @@ import {
 import "../../Styles/Navbar.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import TranslatePage from "./TranslatePage";
 // import { wellCareLogo } from '../../images/wellCareLogo.jpg'
 
 function Navbar() {
@@ -38,6 +39,7 @@ function Navbar() {
 
       {/* Desktop */}
       <ul className="navbar-items">
+        <li><TranslatePage/></li>
         <li>
           <Link to="/" className="navbar-links">
             Home
