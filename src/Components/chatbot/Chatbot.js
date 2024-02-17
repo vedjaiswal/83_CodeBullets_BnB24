@@ -36,6 +36,7 @@ class Chatbot extends React.Component {
 
   this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease });
 };
+console.log(this.state)
 
     
 
@@ -43,7 +44,6 @@ class Chatbot extends React.Component {
         <ChatBot
 
           headerTitle="WellCare Chatbot"
-          
           steps={[
             {
               id: '1',
@@ -52,16 +52,15 @@ class Chatbot extends React.Component {
             },
             {
               id: 'name',
-              user: true,
-              trigger: '3',
+              user: true,              
               validator: (value) => {
                 if (/^[A-Za-z\s]+$/.test(value)) {
-                  console.log("value : " + value)
                   return true;
                 } else {
                   return 'Please enter a valid name (only alphabets and spaces)';
                 }
               },
+              trigger: '3',
             },
             {
               id: '3',
@@ -71,16 +70,15 @@ class Chatbot extends React.Component {
             {
               id: 'age',
               user: true,
-              trigger: '5',
               validator: (value) => {
                 if (isNaN(value)) {
                   return 'Age must be a number.';
                 } else if (parseInt(value) <= 0) {
                   return 'Age must be a positive number.';
-                } else {
-                  return true;
-                }
+                } 
+                return true;
               },
+              trigger: '5',
             },
             {
               id: '5',
@@ -113,7 +111,7 @@ class Chatbot extends React.Component {
             },
           ]}
           floating={true}
-          handleEnd={handleEnd}
+          // handleEnd={handleEnd}
         />
     );
   }
