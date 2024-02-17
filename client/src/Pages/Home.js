@@ -17,10 +17,9 @@ function Home() {
       <Hero />
       {/* <Experiment /> */}
       <Info />
-      <About />
       <BookAppointment />
+      <About />
       <Reviews />
-      <Doctors />
       <Footer />
     </div>
   );

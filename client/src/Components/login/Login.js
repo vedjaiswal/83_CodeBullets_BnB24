@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {Link} from 'react-router-dom'
 import '../../Styles/Login.css'
-
+import loginimg from '../../images/tabletLogin.gif'
 
 const Login = () => {
 
@@ -19,7 +19,12 @@ const Login = () => {
   return (
      
     <div className="page-container">
-    <section className="login-section">
+    <section className="login-section flex">
+      <div className="pr-2 mr-2">
+      <figure className='rounded-l-lg'>
+              <img src={loginimg} alt="gif" className='w-full rounded-l-lg' />
+            </figure>
+      </div>
       <div className="login-container">
         <h3 className="login-heading">
           Hello <span className="login-welcome">Welcome</span> Back
