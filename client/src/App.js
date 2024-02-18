@@ -9,6 +9,7 @@ import Login from "./Components/login/Login";
 import SignUp from "./Components/login/SignUp";
 import Doctors from "./Components/home/Doctors";
 import Chatbot from "./Components/chatbot/Chatbot";
+import { UserAppointments } from "./Components/home/UserAppointments";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/find-doctors" element={<Doctors />} />
+          <Route path="/your-appointments" element={<UserAppointments />} />
           <Route path="/register" element={<SignUp />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/appointment" element={<Appointment />} />

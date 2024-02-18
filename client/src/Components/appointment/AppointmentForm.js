@@ -1,24 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "../../Styles/AppointmentForm.css";
+import { Link, useNavigate } from "react-router-dom";import "../../Styles/AppointmentForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import wellCareLogo from '../../images/wellCareLogo.jpg'
 
 function AppointmentForm() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  }, []);
+
+  const navigate = useNavigate();
 
   const [patientName, setPatientName] = useState("");
   const [patientNumber, setPatientNumber] = useState("");
   const [patientGender, setPatientGender] = useState("default");
   const [doctorName, setDoctorName] = useState("default");
   const [appointmentTime, setAppointmentTime] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState("");
   const [preferredMode, setPreferredMode] = useState("default");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [showTimeSlot, setShowTimeSlot] = useState(false);
   const [timeSlots, setTimeSlots] = useState([]);
+
+  // Function to check if any field is empty
+  const isFormEmpty = () => {
+    return (
+      !patientName.trim() ||
+      !patientNumber.trim() ||
+      patientGender === "default" ||
+      doctorName === "default" ||
+      !appointmentTime ||
+      !appointmentDate ||
+      preferredMode === "default"
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,6 +55,11 @@ function AppointmentForm() {
     if (patientGender === "default") {
       errors.patientGender = "Please select patient gender";
     }
+
+    if (doctorName === "default") {
+      errors.doctorName = "Please select a doctor";
+    }
+
     if (!appointmentTime) {
       errors.appointmentTime = "Appointment time is required";
     } else {
@@ -49,6 +69,11 @@ function AppointmentForm() {
         errors.appointmentTime = "Please select a future appointment time";
       }
     }
+
+    if (!appointmentDate) {
+      errors.appointmentDate = "Appointment date is required";
+    }
+
     if (preferredMode === "default") {
       errors.preferredMode = "Please select preferred mode";
     }
@@ -63,8 +88,26 @@ function AppointmentForm() {
     console.log("Patient Phone Number:", patientNumber);
     console.log("Patient Gender:", patientGender);
     console.log("Selected Doctor:", doctorName);
+    console.log("Appointment Date:", appointmentDate);
     console.log("Appointment Time:", appointmentTime);
     console.log("Preferred Mode:", preferredMode);
+
+    // Pass form data to another component as props
+    const formData = {
+      // ...formData, // Previous data
+      patientName,
+      patientNumber,
+      patientGender,
+      doctorName,
+      appointmentDate,
+      appointmentTime,
+      preferredMode,
+    };
+
+    if (Object.keys(errors).length === 0) {
+      // If there are no validation errors, navigate to the desired path with form data
+      navigate("/your-appointments", { state: { formData } });
+    }
 
     // Reset form fields and errors after successful submission
     setPatientName("");
@@ -72,19 +115,19 @@ function AppointmentForm() {
     setPatientGender("default");
     setDoctorName("default");
     setAppointmentTime("");
+    setAppointmentDate("");
     setPreferredMode("default");
     setFormErrors({});
 
-    toast.success("Appointment Scheduled !", {
-      position: toast.POSITION.TOP_CENTER,
-      onOpen: () => setIsSubmitted(true),
-      onClose: () => setIsSubmitted(false),
-    });
+    // Redirect to another component with form data as props
+    // Replace 'AnotherComponent' with the actual name of the component
+    // and pass 'formData' as a prop
+    // Example: <AnotherComponent formData={formData} />
   };
 
   const handleDoctorChange = (selectedDoctor) => {
     setDoctorName(selectedDoctor);
-    setShowTimeSlot(true); // Show time slot input when a valid doctor is selected
+    setShowTimeSlot(true);
 
     const simulatedTimeSlots = ["11:00", "12:00", "13:00", "14:00", "15:00"];
     setTimeSlots(simulatedTimeSlots);
@@ -97,9 +140,7 @@ function AppointmentForm() {
   return (
     <div className="appointment-form-section">
       <h1 className="legal-siteTitle">
-        <Link to="/">
-         <img style={{width : 300, marginLeft:'40%'}} src={wellCareLogo} alt="wellcare" />
-        </Link>
+        <Link to="/">WellCare</Link>
       </h1>
 
       <div className="form-container">
@@ -162,10 +203,10 @@ function AppointmentForm() {
               required
             >
               <option value="default">Select</option>
-              <option value="male">Dr. Hiranandani</option>
-              <option value="female">Dr. Deshmukh</option>
-              <option value="private">Dr. Malpani</option>
-              <option value="private">Dr. Abhinav</option>
+              <option value="Dr. Hiranamdani">Dr. Hiranandani</option>
+              <option value="Dr. Deshmukh">Dr. Deshmukh</option>
+              <option value="Dr. Malpani">Dr. Malpani</option>
+              <option value="Dr. Abhinav">Dr. Abhinav</option>
             </select>
             {formErrors.doctorName && (
               <p className="error-message">{formErrors.doctorName}</p>
@@ -173,30 +214,39 @@ function AppointmentForm() {
           </label>
 
           {showTimeSlot && (
-  <>
-    <br />
-    <label>
-      Preferred Appointment Time:
-      <div className="time-slot-container flex">
-        {timeSlots.map((slot) => (
-          <div
-            key={slot}
-            className={`time-slot-card p-1 m-2 cursor-pointer rounded-md bg-green-600 ${
-              appointmentTime === slot ? "selected" : ""
-            }`}
-            onClick={() => handleTimeSlotSelect(slot)}
-          >
-            {slot}
-          </div>
-        ))}
-      </div>
-      {formErrors.appointmentTime && (
-        <p className="error-message">{formErrors.appointmentTime}</p>
-      )}
-    </label>
-  </>
-)}
-
+            <>
+              <br />
+              <label>
+                Preferred Appointment Date:
+                <input
+                  type="date"
+                  value={appointmentDate}
+                  onChange={(e) => setAppointmentDate(e.target.value)}
+                  required
+                />
+              </label>
+              <br />
+              <label>
+                Preferred Appointment Time:
+                <div className="time-slot-container flex">
+                  {timeSlots.map((slot) => (
+                    <div
+                      key={slot}
+                      className={`time-slot-card p-1 m-2 cursor-pointer rounded-md bg-green-600 ${
+                        appointmentTime === slot ? "selected" : ""
+                      }`}
+                      onClick={() => handleTimeSlotSelect(slot)}
+                    >
+                      {slot}
+                    </div>
+                  ))}
+                </div>
+                {formErrors.appointmentTime && (
+                  <p className="error-message">{formErrors.appointmentTime}</p>
+                )}
+              </label>
+            </>
+          )}
 
           <br />
           <label>
@@ -215,16 +265,22 @@ function AppointmentForm() {
             )}
           </label>
 
-          <br />
-          <button type="submit" className="text-appointment-btn">
-            Confirm Appointment
-          </button>
+          
+            <br />
+            <button
+              type="submit"
+              className="text-appointment-btn"
+              disabled={isFormEmpty()}
+            >
+              Confirm Appointment
+            </button>
+          
 
           <p
             className="success-message"
             style={{ display: isSubmitted ? "block" : "none" }}
           >
-            Appointment details has been sent to the patients phone number via
+            Appointment details have been sent to the patient's phone number via
             SMS.
           </p>
         </form>
