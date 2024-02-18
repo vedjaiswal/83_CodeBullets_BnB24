@@ -4,7 +4,7 @@ import '../../Styles/Login.css'
 import loginimg from '../../images/tabletLogin.gif'
 import { authenticateLogin } from "../../service/api";
 import { useNavigate } from "react-router-dom";
-import { DataContext } from "../../context/DataProvider";
+// import { DataContext } from "../../context/DataProvider";
 
 const Login = () => {
   
@@ -15,14 +15,13 @@ const Login = () => {
   })
 
   const handleInputChange = e => {
-    setFormData({... formData,[e.target.name]:e.target.value});
+    setFormData({...formData,[e.target.name]:e.target.value});
   }
   const submitHandler = async (event) => {
     event.preventDefault();
     let res = authenticateLogin(formData);
     console.log(res)
     navigate('/')
-
   }
   return (
      

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";import "../../Styles/AppointmentForm.css";
+import { Link, useNavigate } from "react-router-dom";
+import "../../Styles/AppointmentForm.css";
 import { ToastContainer, toast } from "react-toastify";
-import wellCareLogo from '../../images/wellCareLogo.jpg'
+import wellCareLogo from "../../images/wellCareLogo.jpg";
 
 function AppointmentForm() {
   useEffect(() => {
@@ -118,11 +119,6 @@ function AppointmentForm() {
     setAppointmentDate("");
     setPreferredMode("default");
     setFormErrors({});
-
-    // Redirect to another component with form data as props
-    // Replace 'AnotherComponent' with the actual name of the component
-    // and pass 'formData' as a prop
-    // Example: <AnotherComponent formData={formData} />
   };
 
   const handleDoctorChange = (selectedDoctor) => {
@@ -265,16 +261,14 @@ function AppointmentForm() {
             )}
           </label>
 
-          
-            <br />
-            <button
-              type="submit"
-              className="text-appointment-btn"
-              disabled={isFormEmpty()}
-            >
-              Confirm Appointment
-            </button>
-          
+          <br />
+          <button
+            type="submit"
+            className="text-appointment-btn"
+            disabled={isFormEmpty()}
+          >
+            Confirm Appointment
+          </button>
 
           <p
             className="success-message"

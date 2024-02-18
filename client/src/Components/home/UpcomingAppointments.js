@@ -1,6 +1,14 @@
 import React from "react";
 
 const UpcomingAppointments = ({ props }) => {
+    if (!props) {
+        // Render a message or component for no upcoming appointments
+        return (
+          <div className="no-appointments-message">
+            <p>No upcoming appointments.</p>
+          </div>
+        );
+      }
   const inputDate = new Date(props.appointmentDate);
   const options = { year: "numeric", month: "long", day: "numeric" };
 

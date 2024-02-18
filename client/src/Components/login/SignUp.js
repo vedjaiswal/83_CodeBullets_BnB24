@@ -19,11 +19,6 @@ const SignUp = () => {
     console.log(formData)
   };
 
-  const handleFileInputChange = async (event) => {
-    const file = event.target.files[0];
-    console.log(file);
-  };
-
   const submitHandler = async (event) => {
     event.preventDefault();
     console.log("formdata : " + formData)
