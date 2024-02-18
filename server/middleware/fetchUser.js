@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 const JWT_SECRET = process.env.JWT_SECRET;
 
-export const fetchuser = (req, res, next) => {
+export const fetchUser = (req, res, next) => {
     const token = req.header('auth_token');
     if (!token) {
         res.status(401).send({ error: "Please authenticate using a valid token" })
