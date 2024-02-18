@@ -11,10 +11,10 @@ import { toast } from "react-toastify";
 import wellCareLogo from '../../images/wellCareLogo.jpg'
 import { DataContext } from "../../context/DataProvider";
 import TranslatePage from "./TranslatePage";
-
+import Profile from "./Profile";
 
 function Navbar() {
-  const { email } = useContext(DataContext)
+  const { email, setEmail, setToken } = useContext(DataContext)
   const [nav, setNav] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -80,7 +80,7 @@ function Navbar() {
           Login
         </button>
       </Link> : 
-      <p>{email}</p>
+      <Profile email={email} setEmail={setEmail} setToken={setToken} />
       }
 
        {/* <button
