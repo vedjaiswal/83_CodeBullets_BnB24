@@ -40,3 +40,22 @@ export const setAppointment = async(data) => {
         return error.response;
     }
 }
+
+export const getAppointments = async() => {
+    try{
+        const userCookie = Cookies.get('auth_token');
+        const cookie = await JSON.parse(userCookie);
+        const headers = {
+            "auth_token" : cookie.auth_token
+        }
+        // console.log("token",cookie.auth_token)
+        let response = await axios.post(`${URL}/getAppointments`,{
+            headers : headers
+        });
+        return response;
+    }
+    catch(error){
+        console.log("error while Get Appointments login : ", error);
+        return error.response;
+    }
+}
