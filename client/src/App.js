@@ -13,6 +13,7 @@ import RoomPage from './Components/videoCalling/Room.jsx'
 import { UserAppointments } from "./Components/home/UserAppointments";
 import Navbar from "./Components/home/Navbar";
 import DataProvider from "./context/DataProvider";
+import Footer from "./Components/home/Footer.js";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/room/:roomId" element={<RoomPage />} />
         </Routes>
+      <Footer />
       </Router>
       <Chatbot/>
     </div>
