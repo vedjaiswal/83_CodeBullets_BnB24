@@ -23,7 +23,7 @@ const appointmentSchema = new mongoose.Schema({
     },
     patientGender: {
         type: String,
-        enum: ['male', 'female'], required: true
+        enum: ['male', 'female','private'], required: true
     },
     doctorName: {
         type: String,
@@ -39,7 +39,7 @@ const appointmentSchema = new mongoose.Schema({
     },
     preferredMode:{
         type:String,
-        enum: ['Voice Call', 'Video Call'], required: true
+        enum: ['voice', 'video'], required: true
     },
     roomId:{
         type:Number,

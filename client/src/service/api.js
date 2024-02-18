@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Cookies from 'js-cookie';
-
 const URL = "http://localhost:5000";
 
 export const authenticateSignup = async(data) => {
@@ -26,14 +25,14 @@ export const authenticateLogin = async(data) => {
 export const setAppointment = async(data) => {
     try{
         const userCookie = Cookies.get('auth_token');
-        if(userCookie){
-            const user = JSON.parse(userCookie);
-            // setEmail(user.email);
-        }
+        const cookie = await JSON.parse(userCookie);
         const headers = {
-            "auth_token" : userCookie.auth_token
+            "auth_token" : cookie.auth_token
         }
-        let response = await axios.post(`${URL}/setAppointment`, data);
+        console.log("token",cookie.auth_token)
+        let response = await axios.post(`${URL}/setAppointment`, data,{
+            headers : headers
+        });
         return response;
     }
     catch(error){
