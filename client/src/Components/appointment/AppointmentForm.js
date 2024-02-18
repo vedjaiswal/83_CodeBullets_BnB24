@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../Styles/AppointmentForm.css";
 import { ToastContainer, toast } from "react-toastify";
+import {setAppointment} from '../../service/api.js'
 import wellCareLogo from "../../images/wellCareLogo.jpg";
 
 function AppointmentForm() {
@@ -36,7 +37,7 @@ function AppointmentForm() {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     // Validate form inputs
@@ -104,6 +105,10 @@ function AppointmentForm() {
       appointmentTime,
       preferredMode,
     };
+    
+    // Sending Data to the database
+    let res = await setAppointment(formData);
+    console.log("Appointment api  res : ",res)
 
     if (Object.keys(errors).length === 0) {
       // If there are no validation errors, navigate to the desired path with form data

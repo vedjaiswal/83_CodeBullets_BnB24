@@ -4,7 +4,7 @@ import '../../Styles/Login.css'
 import loginimg from '../../images/tabletLogin.gif'
 import { authenticateLogin } from "../../service/api";
 import { useNavigate } from "react-router-dom";
-// import { DataContext } from "../../context/DataProvider";
+import { DataContext } from "../../context/DataProvider";
 
 const Login = () => {
   const { setToken, setEmail } = useContext(DataContext);
