@@ -42,7 +42,7 @@ function Navbar() {
 
       {/* Desktop */}
       <ul className="navbar-items">
-        <li>   <TranslatePage/></li>
+      <li><TranslatePage/></li>
         <li>
           <Link to="/" className="navbar-links">
             Home

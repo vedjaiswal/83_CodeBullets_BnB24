@@ -6,69 +6,56 @@ class Result extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      age: '',
-      symptoms: [],
-      disease: '',
-      result : '',
-      symptomsOptions : []
+      message: '',
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { steps } = this.props;
-    const { name, age, symptoms, disease, symptomsOptions } = steps;
-    const selectedSymptoms = Array.isArray(symptomsOptions) ? symptomsOptions : [];
-    console.log(symptoms)
-    console.log(steps)
-      let suggestedDisease = '';
-      let message = '';
-      let flag = true;
-      // Check for specific symptoms and suggest corresponding disease
-    if(selectedSymptoms.includes('None') && selectedSymptoms.length === 1){
+    console.log('Steps:', steps); // Debug output
+    const { symptoms } = steps;
+    console.log('Symptoms:', symptoms); // Debug output
+    let suggestedDisease = '';
+    let message = '';
+    let flag = true;
+
+    if (Array.isArray(symptoms) && symptoms.includes('None') && symptoms.length === 3) {
       flag = false;
-      message = 'Based on your input, you seem to be having symptoms of Pneumonia. Please book an online appointment with our doctors for further evaluation.'
-    }
-      else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Cough')) {
-        suggestedDisease = 'Common Cold';
-      } else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Fatigue')) {
-        suggestedDisease = 'Flu';
-      } else if (selectedSymptoms.includes('Headache')) {
-        suggestedDisease = 'Migraine';
-      } else if (selectedSymptoms.includes('Nausea') && selectedSymptoms.includes('Vomiting')) {
-        suggestedDisease = 'Stomach Flu';
-      } else if (selectedSymptoms.includes('Chest Pain') && selectedSymptoms.includes('Shortness of Breath')) {
-        suggestedDisease = 'Pneumonia';
-      } else if (selectedSymptoms.includes('Rash') && selectedSymptoms.includes('Joint Pain')) {
-        suggestedDisease = 'Dengue Fever';
+      message = 'Based on your input, you seem to be having symptoms of Pneumonia. Please book an online appointment with our doctors for further evaluation.';
+    } else {
+      if (Array.isArray(symptoms)) {
+        if (symptoms.includes('Fever') && symptoms.includes('Cough')) {
+          suggestedDisease = 'Common Cold';
+        } else if (symptoms.includes('Fever') && symptoms.includes('Fatigue')) {
+          suggestedDisease = 'Flu';
+        } else if (symptoms.includes('Headache')) {
+          suggestedDisease = 'Migraine';
+        } else if (symptoms.includes('Nausea') && symptoms.includes('Vomiting')) {
+          suggestedDisease = 'Stomach Flu';
+        } else if (symptoms.includes('Chest Pain') && symptoms.includes('Shortness of Breath')) {
+          suggestedDisease = 'Pneumonia';
+        } else if (symptoms.includes('Rash') && symptoms.includes('Joint Pain')) {
+          suggestedDisease = 'Dengue Fever';
+        } else {
+          suggestedDisease = 'Common Cold and Flu';
+        }
       } else {
         suggestedDisease = 'Common Cold and Flu';
       }
-      if(flag) message = 'Based on your symptoms, you might be having ' + suggestedDisease + '. Please book an online appointment with our doctors for further evaluation.'
-      this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease, message : message});
+
+      if (flag) {
+        message = `Based on your symptoms, you might be having ${suggestedDisease}. Please book an online appointment with our doctors for further evaluation.`;
+      }
+    }
+
+    this.setState({ message });
   }
 
   render() {
-    const { name, age, symptoms, disease, message } = this.state;
+    const { message } = this.state;
     return (
       <div style={{ width: '100%' }}>
         <p>{message}</p>
-        {/* <table>
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td>{name.value}</td>
-            </tr>
-            <tr>
-              <td>Gender</td>
-              <td>{gender.value}</td>
-            </tr>
-            <tr>
-              <td>Age</td>
-              <td>{age.value}</td>
-            </tr>
-          </tbody>
-        </table> */}
       </div>
     );
   }
@@ -83,45 +70,7 @@ Result.defaultProps = {
 };
 
 class Chatbot extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: '',
-      age: '',
-      symptoms: [],
-      disease: '',
-    };
-  }
-
   render() {
-    // const { name, age, symptoms, disease } = this.state;
-
-    // const handleEnd = ({ steps, values }) => {
-    //   const { name, age, symptoms } = steps;
-    //   const selectedSymptoms = Array.isArray(symptoms) ? symptoms : [];
-    //   let suggestedDisease = '';
-
-    //   // Check for specific symptoms and suggest corresponding disease
-    //   if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Cough')) {
-    //     suggestedDisease = 'Common Cold';
-    //   } else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Fatigue')) {
-    //     suggestedDisease = 'Flu';
-    //   } else if (selectedSymptoms.includes('Headache')) {
-    //     suggestedDisease = 'Migraine';
-    //   } else if (selectedSymptoms.includes('Nausea') && selectedSymptoms.includes('Vomiting')) {
-    //     suggestedDisease = 'Stomach Flu';
-    //   } else if (selectedSymptoms.includes('Chest Pain') && selectedSymptoms.includes('Shortness of Breath')) {
-    //     suggestedDisease = 'Pneumonia';
-    //   } else if (selectedSymptoms.includes('Rash') && selectedSymptoms.includes('Joint Pain')) {
-    //     suggestedDisease = 'Dengue Fever';
-    //   } else {
-    //     suggestedDisease = 'Unknown';
-    //   }
-
-    //   this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease });
-    // };
-
     return (
       <ChatBot
         headerTitle="WellCare Chatbot"
@@ -176,16 +125,8 @@ class Chatbot extends React.Component {
           },
           {
             id: 'disease',
-            component : <Result/>,
+            component: <Result />,
             asMessage: true,
-            // message: ({ previousValue }) => {
-            //   const { name, age, symptoms, disease } = this.state;
-            //   if (previousValue === 'None' && symptoms.length === 0) {
-            //     return 'Based on your input, you seem to be healthy. If you have further concerns, please consult a healthcare professional.';
-            //   } else if (previousValue === 'Other') {
-            //     return `Based on your symptoms, you might be having ${disease}. Please consult a doctor for further evaluation.`;
-            //   } 
-            // },
             end: true,
           },
         ]}
