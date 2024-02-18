@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import wellCareLogo from '../../images/wellCareLogo.jpg'
 import { DataContext } from "../../context/DataProvider";
+import TranslatePage from "./TranslatePage";
 
 
 function Navbar() {
@@ -41,6 +42,7 @@ function Navbar() {
 
       {/* Desktop */}
       <ul className="navbar-items">
+        <li>   <TranslatePage/></li>
         <li>
           <Link to="/" className="navbar-links">
             Home
