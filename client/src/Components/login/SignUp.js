@@ -7,15 +7,16 @@ import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    gender: "",
+    fullName : "",
+    email : "",
+    password : "",
+    gender : "",
     // role: "patient",
   });
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData)
   };
 
   const handleFileInputChange = async (event) => {
@@ -25,6 +26,7 @@ const SignUp = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    console.log("formdata : " + formData)
     let res = authenticateSignup(formData)
     console.log(res);
     navigate('/');
@@ -46,15 +48,15 @@ const SignUp = () => {
             <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10">
               Create an <span className="text-primaryColor">account</span>
             </h3>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={(e)=>submitHandler(e)}>
               <div className="mb-5">
                 <input
                   type="text"
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   placeholder="Full Name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={(e) => handleInputChange(e)}
                   required
                 />
               </div>
