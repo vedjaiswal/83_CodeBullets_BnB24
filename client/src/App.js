@@ -10,6 +10,7 @@ import SignUp from "./Components/login/SignUp";
 import Doctors from "./Components/home/Doctors";
 import Chatbot from "./Components/chatbot/Chatbot";
 import { UserAppointments } from "./Components/home/UserAppointments";
+import Navbar from "./Components/home/Navbar";
 import DataProvider from "./context/DataProvider";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <DataProvider>
     <div className="App">
       <Router>
+      <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

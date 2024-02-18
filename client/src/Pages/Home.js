@@ -13,7 +13,6 @@ import Chatbot from "../Components/chatbot/Chatbot";
 function Home() {
   return (
     <div className="home-section">
-      <Navbar />
       <Hero />
       <Info />
       <BookAppointment />
