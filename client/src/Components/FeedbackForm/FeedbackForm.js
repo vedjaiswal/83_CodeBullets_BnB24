@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../../Styles/FeedbackForm.css";
 
-
 const FeedbackForm = ({ onSubmit }) => {
   const [feedback, setFeedback] = useState({
     name: "",
@@ -17,13 +16,6 @@ const FeedbackForm = ({ onSubmit }) => {
     setFeedback((prevFeedback) => ({
       ...prevFeedback,
       [name]: value
-    }));
-  };
-
-  const handleRatingChange = (rating) => {
-    setFeedback((prevFeedback) => ({
-      ...prevFeedback,
-      rating: rating
     }));
   };
 
@@ -44,10 +36,10 @@ const FeedbackForm = ({ onSubmit }) => {
 
   return (
     <div className="feedback-form-container">
-      <h2>Feedback Form</h2>
+      <h2 className="form-heading">Feedback Form</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name" className="bold">Name:</label>
           <input
             type="text"
             id="name"
@@ -55,10 +47,12 @@ const FeedbackForm = ({ onSubmit }) => {
             value={feedback.name}
             onChange={handleChange}
             required
+            className="input-field"
+            placeholder="Enter your name"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email" className="bold">Email:</label>
           <input
             type="email"
             id="email"
@@ -66,10 +60,12 @@ const FeedbackForm = ({ onSubmit }) => {
             value={feedback.email}
             onChange={handleChange}
             required
+            className="input-field"
+            placeholder="Enter your email"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="visitDate">Visit Date:</label>
+          <label htmlFor="visitDate" className="bold">Visit Date:</label>
           <input
             type="date"
             id="visitDate"
@@ -77,10 +73,11 @@ const FeedbackForm = ({ onSubmit }) => {
             value={feedback.visitDate}
             onChange={handleChange}
             required
+            className="input-field"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="doctorName">Doctor's Name:</label>
+          <label htmlFor="doctorName" className="bold">Doctor's Name:</label>
           <input
             type="text"
             id="doctorName"
@@ -88,33 +85,39 @@ const FeedbackForm = ({ onSubmit }) => {
             value={feedback.doctorName}
             onChange={handleChange}
             required
+            className="input-field"
+            placeholder="Enter doctor's name"
           />
         </div>
         <div className="form-group">
-          <label>Rating:</label>
-          <div className="rating">
-            {[...Array(5)].map((_, index) => (
-              <span
-                key={index}
-                className={index < feedback.rating ? "active" : ""}
-                onClick={() => handleRatingChange(index + 1)}
-              >
-                &#9733;
-              </span>
+          <label htmlFor="rating" className="bold">Rating:</label>
+          <select
+            id="rating"
+            name="rating"
+            value={feedback.rating}
+            onChange={handleChange}
+            required
+            className="input-field"
+          >
+            <option value="">Select rating</option>
+            {[...Array(10)].map((_, index) => (
+              <option key={index + 1} value={index + 1}>{index + 1}</option>
             ))}
-          </div>
+          </select>
         </div>
         <div className="form-group">
-          <label htmlFor="comments">Comments:</label>
+          <label htmlFor="comments" className="bold">Comments:</label>
           <textarea
             id="comments"
             name="comments"
             value={feedback.comments}
             onChange={handleChange}
             required
+            className="input-field"
+            placeholder="Enter your comments"
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="submit-btn">Submit</button>
       </form>
     </div>
   );

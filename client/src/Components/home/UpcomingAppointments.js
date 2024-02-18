@@ -33,7 +33,7 @@ const UpcomingAppointments = () => {
   }
 
   return (
-    <div className="appointments-container">
+    <div className="appointments-container justify-between">
       {appointments.map((appointment) => (
         <AppointmentCard key={appointment._id} appointment={appointment} />
       ))}
