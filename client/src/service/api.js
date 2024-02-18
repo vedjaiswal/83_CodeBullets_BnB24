@@ -49,7 +49,7 @@ export const getAppointments = async() => {
             "auth_token" : cookie.auth_token
         }
         // console.log("token",cookie.auth_token)
-        let response = await axios.post(`${URL}/getAppointments`,{
+        let response = await axios.get(`${URL}/getAppointments`,{
             headers : headers
         });
         return response;

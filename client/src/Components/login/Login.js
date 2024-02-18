@@ -51,7 +51,7 @@ const Login = () => {
         <h3 className="login-heading">
           Hello <span className="login-welcome">Welcome</span> Back
         </h3>
-        <form onSubmit={submitHandler} className="login-form">
+        <form onSubmit={(e)=>submitHandler(e)} className="login-form">
           <div className="mb-5">
             <input
               type="email"

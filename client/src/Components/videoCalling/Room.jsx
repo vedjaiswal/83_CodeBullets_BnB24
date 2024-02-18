@@ -6,8 +6,10 @@ const Room = () => {
     const { roomId } = useParams();
     const {email} = useContext(DataContext);
     const myMeeting = async (element) => {
-        const appID = Number(process.env.APP_ID);
-        const serverSecret = process.env.SERVER_SECRET;
+        // const appID = Number(process.env.APP_ID);
+        // const serverSecret = process.env.SERVER_SECRET;
+        const appID = 1541169948;
+        const serverSecret = "f930453f185d34eba9017a5e8beca7fa";
         const name = email.substring(0, email.indexOf("@"));
 
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomId,email, name );
