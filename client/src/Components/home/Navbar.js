@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCommentDots,
@@ -9,9 +9,11 @@ import "../../Styles/Navbar.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import wellCareLogo from '../../images/wellCareLogo.jpg'
+import { DataContext } from "../../context/DataProvider";
 
 
 function Navbar() {
+  const { email } = useContext(DataContext)
   const [nav, setNav] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -71,11 +73,13 @@ function Navbar() {
         </li>
       </ul>
 
-      <Link to="/login">
+      {email === ''?   <Link to="/login">
         <button className="bg-black py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[40px]">
           Login
         </button>
-      </Link>
+      </Link> : 
+      <p>{email}</p>
+      }
 
        {/* <button
         className="navbar-btn"

@@ -10,9 +10,11 @@ import SignUp from "./Components/login/SignUp";
 import Doctors from "./Components/home/Doctors";
 import Chatbot from "./Components/chatbot/Chatbot";
 import { UserAppointments } from "./Components/home/UserAppointments";
+import DataProvider from "./context/DataProvider";
 
 function App() {
   return (
+    <DataProvider>
     <div className="App">
       <Router>
         <Routes>
@@ -28,6 +30,7 @@ function App() {
       </Router>
       <Chatbot/>
     </div>
+    </DataProvider>
   );
 }
 

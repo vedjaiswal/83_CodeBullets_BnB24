@@ -10,21 +10,49 @@ class Result extends Component {
       age: '',
       symptoms: [],
       disease: '',
+      result : '',
+      symptomsOptions : []
     };
   }
 
   componentWillMount() {
     const { steps } = this.props;
-    const { name, age, symptoms, disease } = steps;
-
-    this.setState({ name, age, symptoms, disease });
+    const { name, age, symptoms, disease, symptomsOptions } = steps;
+    const selectedSymptoms = Array.isArray(symptomsOptions) ? symptomsOptions : [];
+    console.log(symptoms)
+    console.log(steps)
+      let suggestedDisease = '';
+      let message = '';
+      let flag = true;
+      // Check for specific symptoms and suggest corresponding disease
+    if(selectedSymptoms.includes('None') && selectedSymptoms.length === 1){
+      flag = false;
+      message = 'Based on your input, you seem to be healthy. If you have further concerns, please consult a healthcare professional.'
+    }
+      else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Cough')) {
+        suggestedDisease = 'Common Cold';
+      } else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Fatigue')) {
+        suggestedDisease = 'Flu';
+      } else if (selectedSymptoms.includes('Headache')) {
+        suggestedDisease = 'Migraine';
+      } else if (selectedSymptoms.includes('Nausea') && selectedSymptoms.includes('Vomiting')) {
+        suggestedDisease = 'Stomach Flu';
+      } else if (selectedSymptoms.includes('Chest Pain') && selectedSymptoms.includes('Shortness of Breath')) {
+        suggestedDisease = 'Pneumonia';
+      } else if (selectedSymptoms.includes('Rash') && selectedSymptoms.includes('Joint Pain')) {
+        suggestedDisease = 'Dengue Fever';
+      } else {
+        suggestedDisease = 'Pneumonia';
+      }
+      if(flag) message = 'Based on your symptoms, you might be having ' + suggestedDisease + '. Please consult a doctor for further evaluation.'
+      this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease, message : message});
   }
 
   render() {
-    const { name, age, symptoms, disease } = this.state;
+    const { name, age, symptoms, disease, message } = this.state;
     return (
       <div style={{ width: '100%' }}>
-        <h3>Summary</h3>
+        <p>{message}</p>
         {/* <table>
           <tbody>
             <tr>
@@ -67,32 +95,32 @@ class Chatbot extends React.Component {
   }
 
   render() {
-    const { name, age, symptoms, disease } = this.state;
+    // const { name, age, symptoms, disease } = this.state;
 
-    const handleEnd = ({ steps, values }) => {
-      const { name, age, symptoms } = steps;
-      const selectedSymptoms = Array.isArray(symptoms) ? symptoms : [];
-      let suggestedDisease = '';
+    // const handleEnd = ({ steps, values }) => {
+    //   const { name, age, symptoms } = steps;
+    //   const selectedSymptoms = Array.isArray(symptoms) ? symptoms : [];
+    //   let suggestedDisease = '';
 
-      // Check for specific symptoms and suggest corresponding disease
-      if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Cough')) {
-        suggestedDisease = 'Common Cold';
-      } else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Fatigue')) {
-        suggestedDisease = 'Flu';
-      } else if (selectedSymptoms.includes('Headache')) {
-        suggestedDisease = 'Migraine';
-      } else if (selectedSymptoms.includes('Nausea') && selectedSymptoms.includes('Vomiting')) {
-        suggestedDisease = 'Stomach Flu';
-      } else if (selectedSymptoms.includes('Chest Pain') && selectedSymptoms.includes('Shortness of Breath')) {
-        suggestedDisease = 'Pneumonia';
-      } else if (selectedSymptoms.includes('Rash') && selectedSymptoms.includes('Joint Pain')) {
-        suggestedDisease = 'Dengue Fever';
-      } else {
-        suggestedDisease = 'Unknown';
-      }
+    //   // Check for specific symptoms and suggest corresponding disease
+    //   if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Cough')) {
+    //     suggestedDisease = 'Common Cold';
+    //   } else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Fatigue')) {
+    //     suggestedDisease = 'Flu';
+    //   } else if (selectedSymptoms.includes('Headache')) {
+    //     suggestedDisease = 'Migraine';
+    //   } else if (selectedSymptoms.includes('Nausea') && selectedSymptoms.includes('Vomiting')) {
+    //     suggestedDisease = 'Stomach Flu';
+    //   } else if (selectedSymptoms.includes('Chest Pain') && selectedSymptoms.includes('Shortness of Breath')) {
+    //     suggestedDisease = 'Pneumonia';
+    //   } else if (selectedSymptoms.includes('Rash') && selectedSymptoms.includes('Joint Pain')) {
+    //     suggestedDisease = 'Dengue Fever';
+    //   } else {
+    //     suggestedDisease = 'Unknown';
+    //   }
 
-      this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease });
-    };
+    //   this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease });
+    // };
 
     return (
       <ChatBot
@@ -146,19 +174,20 @@ class Chatbot extends React.Component {
           },
           {
             id: 'disease',
-            message: ({ previousValue }) => {
-              const { name, age, symptoms, disease } = this.state;
-              if (previousValue === 'None' && symptoms.length === 0) {
-                return 'Based on your input, you seem to be healthy. If you have further concerns, please consult a healthcare professional.';
-              } else if (previousValue === 'Other') {
-                return `Based on your symptoms, you might be having ${disease}. Please consult a doctor for further evaluation.`;
-              } 
-            },
+            component : <Result/>,
+            asMessage: true,
+            // message: ({ previousValue }) => {
+            //   const { name, age, symptoms, disease } = this.state;
+            //   if (previousValue === 'None' && symptoms.length === 0) {
+            //     return 'Based on your input, you seem to be healthy. If you have further concerns, please consult a healthcare professional.';
+            //   } else if (previousValue === 'Other') {
+            //     return `Based on your symptoms, you might be having ${disease}. Please consult a doctor for further evaluation.`;
+            //   } 
+            // },
             end: true,
           },
         ]}
         floating={true}
-        handleEnd={handleEnd}
       />
     );
   }

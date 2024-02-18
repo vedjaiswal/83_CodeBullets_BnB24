@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import signupImg from "../../images/signup.gif";
 import { authenticateSignup } from "../../service/api";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../../context/DataProvider";
 
 const SignUp = () => {
+  const { setToken, setEmail } = useContext(DataContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName : "",
@@ -27,8 +29,12 @@ const SignUp = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     console.log("formdata : " + formData)
-    let res = authenticateSignup(formData)
+    let res = await authenticateSignup(formData)
     console.log(res);
+    if(res.status === 200){
+      setEmail(formData.email)
+      setToken(res.data.auth_token)
+    }
     navigate('/');
   };
 

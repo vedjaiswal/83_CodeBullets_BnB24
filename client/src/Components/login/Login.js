@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {Link} from 'react-router-dom'
 import '../../Styles/Login.css'
 import loginimg from '../../images/tabletLogin.gif'
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
 
 const Login = () => {
-  
+  const { setToken, setEmail } = useContext(DataContext);
   const navigate = useNavigate();
   const [formData, setFormData] =useState({
     email: '',
@@ -19,8 +19,15 @@ const Login = () => {
   }
   const submitHandler = async (event) => {
     event.preventDefault();
-    let res = authenticateLogin(formData);
-    console.log(res)
+    let res = await authenticateLogin(formData);
+    // console.log(res)
+    if(res.status === 200){
+      setEmail(formData.email)
+      setToken(res.data.auth_token)
+
+    }
+    console.log(formData.email)
+    console.log(res.data.auth_token)
     navigate('/')
 
   }
