@@ -125,6 +125,8 @@ class Chatbot extends React.Component {
     return (
       <ChatBot
         headerTitle="WellCare Chatbot"
+        recognitionEnable={true}
+        speechSynthesis={{ enable: true, lang: 'en' }}
         steps={[
           {
             id: '1',
