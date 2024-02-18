@@ -1,4 +1,6 @@
 import axios from 'axios'
+import Cookies from 'js-cookie';
+
 const URL = "http://localhost:5000";
 
 export const authenticateSignup = async(data) => {
@@ -26,7 +28,7 @@ export const setAppointment = async(data) => {
         const userCookie = Cookies.get('auth_token');
         if(userCookie){
             const user = JSON.parse(userCookie);
-            setEmail(user.email);
+            // setEmail(user.email);
         }
         const headers = {
             "auth_token" : userCookie.auth_token
