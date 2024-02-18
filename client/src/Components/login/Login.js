@@ -5,6 +5,7 @@ import loginimg from '../../images/tabletLogin.gif'
 import { authenticateLogin } from "../../service/api";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
+import Cookies from 'js-cookie'
 
 const Login = () => {
   const { setToken, setEmail } = useContext(DataContext);
@@ -21,14 +22,21 @@ const Login = () => {
     event.preventDefault();
     let res = await authenticateLogin(formData);
     // console.log(res)
-    if(res.status === 200){
-      setEmail(formData.email)
-      setToken(res.data.auth_token)
-
-    }
+    const email = formData.email;
+      const auth_token = res.data.auth_token
+      if(res.status === 200){
+          const userData = {
+              email,
+              auth_token
+          }; 
+          Cookies.set('auth_token', JSON.stringify(userData), { expires: 1 });
+          setEmail(email);
+          setToken(auth_token)
+          navigate('/')
+      }
     console.log(formData.email)
     console.log(res.data.auth_token)
-    navigate('/')
+    // navigate('/')
   }
   return (
      

@@ -27,7 +27,7 @@ class Result extends Component {
       // Check for specific symptoms and suggest corresponding disease
     if(selectedSymptoms.includes('None') && selectedSymptoms.length === 1){
       flag = false;
-      message = 'Based on your input, you seem to be healthy. If you have further concerns, please consult a healthcare professional.'
+      message = 'Based on your input, you seem to be having symptoms of Pneumonia. Please book an online appointment with our doctors for further evaluation.'
     }
       else if (selectedSymptoms.includes('Fever') && selectedSymptoms.includes('Cough')) {
         suggestedDisease = 'Common Cold';
@@ -42,9 +42,9 @@ class Result extends Component {
       } else if (selectedSymptoms.includes('Rash') && selectedSymptoms.includes('Joint Pain')) {
         suggestedDisease = 'Dengue Fever';
       } else {
-        suggestedDisease = 'Pneumonia';
+        suggestedDisease = 'Common Cold and Flu';
       }
-      if(flag) message = 'Based on your symptoms, you might be having ' + suggestedDisease + '. Please consult a doctor for further evaluation.'
+      if(flag) message = 'Based on your symptoms, you might be having ' + suggestedDisease + '. Please book an online appointment with our doctors for further evaluation.'
       this.setState({ name, age, symptoms: selectedSymptoms, disease: suggestedDisease, message : message});
   }
 
