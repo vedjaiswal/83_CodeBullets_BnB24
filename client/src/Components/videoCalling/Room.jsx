@@ -1,10 +1,12 @@
-import React ,{useContext } from 'react'
+import React ,{useState,useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 import { DataContext } from '../../context/DataProvider.js';
+import FeedbackForm from '../FeedbackForm/FeedbackForm.js'
 const Room = () => {
     const { roomId } = useParams();
     const {email} = useContext(DataContext);
+    const [open,setOpen] = useState(false);
     const myMeeting = async (element) => {
         // const appID = Number(process.env.APP_ID);
         // const serverSecret = process.env.SERVER_SECRET;
@@ -19,12 +21,16 @@ const Room = () => {
             container:element,
             scenario : {
                 mode : ZegoUIKitPrebuilt.OneONoneCall
-            }
+            },
+            onLeaveRoom: () => {
+                setOpen(true);
+              }
         })
     }
     return (
         <div>
-            <div ref={myMeeting}/>
+            {!open && <div ref={myMeeting}/>}
+            {open && <FeedbackForm/>}
         </div>
     )
 }
