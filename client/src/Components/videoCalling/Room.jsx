@@ -8,10 +8,16 @@ const Room = () => {
     const {email} = useContext(DataContext);
     const [open,setOpen] = useState(false);
     const myMeeting = async (element) => {
-        // const appID = Number(process.env.APP_ID);
-        // const serverSecret = process.env.SERVER_SECRET;
-        const appID = 1541169948;
-        const serverSecret = "f930453f185d34eba9017a5e8beca7fa";
+        
+        const appIdStr = process.env.REACT_APP_APP_ID;
+        const appID = parseInt(appIdStr)
+        console.log(appID);
+        console.log(typeof(appID))
+
+        const serverSecret = process.env.REACT_APP_SERVER_SECRET;
+        console.log(serverSecret);
+        console.log(typeof(serverSecret))
+
         const name = email.substring(0, email.indexOf("@"));
 
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomId,email, name );

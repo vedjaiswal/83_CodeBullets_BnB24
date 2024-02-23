@@ -15,9 +15,9 @@ const AppointmentCard = ({ appointment }) => {
   }, [navigate, roomId]);
 
   return (
-    <div className="max-w-sm p-6 bg-[#f2f2f2] dark:bg-[#f2f2f2] border border-gray-200 rounded-lg shadow-md dark:border-gray-700">
+    <div className="max-w-sm p-6 bg-transparent bg-[#f2f2f2] dark:bg-[#f2f2f2] 0 rounded-lg shadow-2xl dark:border-gray-700 m-5">
       <div className="flex flex-col items-start">
-        <h5 className="mb-2 text-4xl font-bold tracking-tight text-white dark:text-gray-900 text-left">
+        <h5 className="mb-2 text-4xl font-bold tracking-tight text-black dark:text-gray-900 text-left">
           {appointment.doctorName}
         </h5>
         <div className="bg-green-300 text-white rounded-md p-1 text-sm mb-3 inline-block ml-0">
